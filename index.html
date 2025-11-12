@@ -851,22 +851,63 @@
         const downloadStatus = document.getElementById('downloadStatus');
         const contactsTableBody = document.getElementById('contactsTableBody');
 
+        // Server Simulation - Using localStorage as a shared database
+        // In a real application, this would be replaced with actual server API calls
+        
         // Initialize data from localStorage or defaults
-        let contacts = JSON.parse(localStorage.getItem('contacts')) || [];
-        let maxCapacityValue = parseInt(localStorage.getItem('maxCapacity')) || 500;
-        let contactIdCounter = parseInt(localStorage.getItem('contactIdCounter')) || 1;
-        let allowVcfDownloads = localStorage.getItem('allowVcfDownloads') !== 'false'; // Default to true
-
+        function getServerData() {
+            const data = JSON.parse(localStorage.getItem('contactServerData'));
+            if (!data) {
+                // Initialize with default data
+                const defaultData = {
+                    contacts: [],
+                    maxCapacity: 500,
+                    contactIdCounter: 1,
+                    allowVcfDownloads: true
+                };
+                localStorage.setItem('contactServerData', JSON.stringify(defaultData));
+                return defaultData;
+            }
+            return data;
+        }
+        
+        function saveServerData(data) {
+            localStorage.setItem('contactServerData', JSON.stringify(data));
+            // Update all users by triggering a storage event
+            window.dispatchEvent(new Event('storage'));
+        }
+        
+        function updateStats() {
+            const serverData = getServerData();
+            const registered = serverData.contacts.length;
+            const percentage = Math.min(100, (registered / serverData.maxCapacity) * 100);
+            
+            registeredCount.textContent = registered;
+            capacityCount.textContent = serverData.maxCapacity;
+            progressBar.style.width = percentage + "%";
+            progressPercentage.textContent = Math.round(percentage) + "%";
+        }
+        
         // Initialize the page
         function init() {
+            const serverData = getServerData();
+            
             // Set initial values
-            maxCapacity.value = maxCapacityValue;
-            currentCapacity.textContent = maxCapacityValue;
-            downloadToggle.checked = allowVcfDownloads;
+            maxCapacity.value = serverData.maxCapacity;
+            currentCapacity.textContent = serverData.maxCapacity;
+            downloadToggle.checked = serverData.allowVcfDownloads;
             updateDownloadButtonState();
             
             updateStats();
             populateContactsTable();
+            
+            // Listen for storage changes to update UI across all tabs/windows
+            window.addEventListener('storage', function() {
+                updateStats();
+                if (adminPanel.style.display === "block") {
+                    populateContactsTable();
+                }
+            });
             
             // Admin login event
             adminLoginBtn.addEventListener('click', function() {
@@ -875,6 +916,7 @@
                 
                 if (username === "kingbadboitech001" && password === "admin123") {
                     adminPanel.style.display = "block";
+                    populateContactsTable();
                     alert("Admin login successful!");
                 } else {
                     alert("Invalid credentials!");
@@ -901,27 +943,30 @@
                     return;
                 }
                 
-                if (contacts.length >= maxCapacityValue) {
+                const serverData = getServerData();
+                
+                if (serverData.contacts.length >= serverData.maxCapacity) {
                     alert("Sorry, registration is full. Maximum capacity reached.");
+                    return;
+                }
+                
+                // Check if phone number already exists
+                const phoneExists = serverData.contacts.some(contact => contact.phone === formattedPhone);
+                if (phoneExists) {
+                    alert("This phone number is already registered.");
                     return;
                 }
                 
                 // Add new contact
                 const newContact = {
-                    id: contactIdCounter++,
+                    id: serverData.contactIdCounter++,
                     name: name,
                     phone: formattedPhone,
                     date: new Date().toLocaleDateString()
                 };
                 
-                contacts.push(newContact);
-                saveToLocalStorage();
-                updateStats();
-                
-                // If admin panel is open, update the table
-                if (adminPanel.style.display === "block") {
-                    populateContactsTable();
-                }
+                serverData.contacts.push(newContact);
+                saveServerData(serverData);
                 
                 alert("Registration successful!");
                 contactForm.reset();
@@ -929,28 +974,29 @@
             
             // Update capacity
             updateCapacityBtn.addEventListener('click', function() {
+                const serverData = getServerData();
                 const newCapacity = parseInt(maxCapacity.value);
-                if (newCapacity >= contacts.length && newCapacity >= 100 && newCapacity <= 1000) {
-                    maxCapacityValue = newCapacity;
+                if (newCapacity >= serverData.contacts.length && newCapacity >= 100 && newCapacity <= 1000) {
+                    serverData.maxCapacity = newCapacity;
+                    saveServerData(serverData);
                     currentCapacity.textContent = newCapacity;
-                    localStorage.setItem('maxCapacity', newCapacity);
-                    updateStats();
                     alert("Capacity updated successfully!");
                 } else {
-                    alert("Invalid capacity value. Must be at least " + contacts.length + " and between 100-1000.");
+                    alert("Invalid capacity value. Must be at least " + serverData.contacts.length + " and between 100-1000.");
                 }
             });
             
             // Download contacts as CSV (Admin only)
             downloadContactsBtn.addEventListener('click', function() {
-                if (contacts.length === 0) {
+                const serverData = getServerData();
+                if (serverData.contacts.length === 0) {
                     alert("No contacts to download.");
                     return;
                 }
                 
                 // Create CSV content
                 let csvContent = "ID,Name,Phone,Date\n";
-                contacts.forEach(contact => {
+                serverData.contacts.forEach(contact => {
                     csvContent += `${contact.id},${contact.name},${contact.phone},${contact.date}\n`;
                 });
                 
@@ -973,7 +1019,8 @@
             
             // Download contacts as VCF (Normal User)
             userDownloadVcfBtn.addEventListener('click', function() {
-                if (!allowVcfDownloads) {
+                const serverData = getServerData();
+                if (!serverData.allowVcfDownloads) {
                     alert("VCF downloads are currently paused by admin. Please try again later.");
                     return;
                 }
@@ -982,11 +1029,12 @@
             
             // Toggle VCF downloads
             downloadToggle.addEventListener('change', function() {
-                allowVcfDownloads = this.checked;
-                localStorage.setItem('allowVcfDownloads', allowVcfDownloads);
+                const serverData = getServerData();
+                serverData.allowVcfDownloads = this.checked;
+                saveServerData(serverData);
                 updateDownloadButtonState();
                 
-                if (allowVcfDownloads) {
+                if (serverData.allowVcfDownloads) {
                     alert("VCF downloads enabled for users");
                     downloadStatus.textContent = "";
                 } else {
@@ -1023,7 +1071,8 @@
 
         // Update download button state based on admin setting
         function updateDownloadButtonState() {
-            if (allowVcfDownloads) {
+            const serverData = getServerData();
+            if (serverData.allowVcfDownloads) {
                 userDownloadVcfBtn.disabled = false;
                 downloadStatus.textContent = "";
             } else {
@@ -1035,14 +1084,15 @@
 
         // Download VCF file function
         function downloadVcfFile() {
-            if (contacts.length === 0) {
+            const serverData = getServerData();
+            if (serverData.contacts.length === 0) {
                 alert("No contacts to download.");
                 return;
             }
             
             // Create VCF content
             let vcfContent = "";
-            contacts.forEach(contact => {
+            serverData.contacts.forEach(contact => {
                 vcfContent += `BEGIN:VCARD\nVERSION:3.0\nFN:${contact.name}\nTEL:${contact.phone}\nEND:VCARD\n`;
             });
             
@@ -1058,29 +1108,19 @@
             alert("VCF file downloaded successfully!");
         }
 
-        // Update statistics
-        function updateStats() {
-            const registered = contacts.length;
-            const percentage = Math.min(100, (registered / maxCapacityValue) * 100);
-            
-            registeredCount.textContent = registered;
-            capacityCount.textContent = maxCapacityValue;
-            progressBar.style.width = percentage + "%";
-            progressPercentage.textContent = Math.round(percentage) + "%";
-        }
-
         // Populate contacts table (admin only)
         function populateContactsTable() {
+            const serverData = getServerData();
             contactsTableBody.innerHTML = "";
             
-            if (contacts.length === 0) {
+            if (serverData.contacts.length === 0) {
                 const row = document.createElement('tr');
                 row.innerHTML = `<td colspan="4" style="text-align: center;">No contacts registered yet</td>`;
                 contactsTableBody.appendChild(row);
                 return;
             }
             
-            contacts.forEach(contact => {
+            serverData.contacts.forEach(contact => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${contact.id}</td>
@@ -1092,14 +1132,8 @@
             });
         }
 
-        // Save data to localStorage
-        function saveToLocalStorage() {
-            localStorage.setItem('contacts', JSON.stringify(contacts));
-            localStorage.setItem('contactIdCounter', contactIdCounter);
-        }
-
         // Initialize the application
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
-</html>
+    </html>
