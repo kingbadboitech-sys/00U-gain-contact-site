@@ -419,6 +419,76 @@
             margin-top: 20px;
         }
 
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--food-green);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(150%);
+            transition: transform 0.5s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification i {
+            font-size: 1.5rem;
+        }
+
+        .notification-content h4 {
+            margin-bottom: 5px;
+        }
+
+        .notification-content p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        /* Auto Typing Styles */
+        .auto-typing {
+            height: 60px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .typing-text {
+            font-size: 1.2rem;
+            color: var(--food-yellow);
+            border-right: 2px solid var(--food-yellow);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--food-yellow) }
+        }
+
         /* Privacy Notice */
         .privacy-notice {
             background: rgba(255, 152, 0, 0.1);
@@ -431,6 +501,21 @@
         .privacy-notice h4 {
             color: var(--food-yellow);
             margin-bottom: 8px;
+        }
+
+        /* Purpose Statement */
+        .purpose-statement {
+            background: rgba(121, 85, 72, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid var(--food-brown);
+        }
+
+        .purpose-statement h3 {
+            color: var(--food-yellow);
+            margin-bottom: 10px;
         }
 
         /* Responsive Design */
@@ -462,10 +547,28 @@
             .stat-box {
                 width: 100%;
             }
+            
+            .notification {
+                left: 10px;
+                right: 10px;
+                top: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-bullhorn"></i>
+        <div class="notification-content">
+            <h4>New VCF File Available!</h4>
+            <p>Admin has released a new contact file. Download now!</p>
+        </div>
+        <button class="notification-close" id="notificationClose">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
     <div class="container">
         <header>
             <div class="logo">
@@ -477,17 +580,30 @@
 
         <div class="main-content">
             <div class="form-section">
+                <div class="auto-typing">
+                    <div class="typing-text" id="typingText"></div>
+                </div>
+                
+                <div class="purpose-statement">
+                    <h3><i class="fas fa-info-circle"></i> Website Purpose</h3>
+                    <p>This website is designed specifically for gaining WhatsApp contacts only. Register to join our community!</p>
+                </div>
+                
                 <h2>Join Our WhatsApp Group 2025</h2>
                 <form id="contactForm">
                     <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" placeholder="Enter your full name" required>
+                        <label for="name"><i class="fas fa-user"></i> Your Name or Nickname</label>
+                        <input type="text" id="name" placeholder="Enter your name or nickname" required>
+                        <small style="color: var(--light); font-size: 0.8rem;">Use any name you prefer to be called</small>
                     </div>
                     <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" placeholder="Enter your WhatsApp number" required>
+                        <label for="phone"><i class="fas fa-phone"></i> WhatsApp Phone Number</label>
+                        <input type="tel" id="phone" placeholder="Enter your WhatsApp number with country code" required>
+                        <small style="color: var(--light); font-size: 0.8rem;">Format: +2348012345678 (include country code)</small>
                     </div>
-                    <button type="submit" class="submit-btn">Submit & Join Group</button>
+                    <button type="submit" class="submit-btn">
+                        <i class="fab fa-whatsapp"></i> Submit & Join Group
+                    </button>
                 </form>
                 
                 <div class="privacy-notice">
@@ -496,13 +612,15 @@
                 </div>
                 
                 <div class="instructions">
-                    <h3>How to Use This System</h3>
+                    <h3><i class="fas fa-graduation-cap"></i> How to Gain Contacts - Complete Guide</h3>
                     <ol>
-                        <li>Enter your full name and WhatsApp phone number</li>
-                        <li>Click the submit button to register</li>
-                        <li>Wait for confirmation message on WhatsApp</li>
-                        <li>You'll be added to the OOU WhatsApp group</li>
-                        <li>Check the statistics to see current registration count</li>
+                        <li><strong>Enter Your Name/Nickname:</strong> Use any name you want to be identified by in the group</li>
+                        <li><strong>Provide WhatsApp Number:</strong> Enter your active WhatsApp number with country code (e.g., +2348012345678)</li>
+                        <li><strong>Submit Registration:</strong> Click the submit button to register your details</li>
+                        <li><strong>Wait for Confirmation:</strong> You'll receive a WhatsApp message confirming your registration</li>
+                        <li><strong>Join the Group:</strong> You'll be added to the OOU WhatsApp group automatically</li>
+                        <li><strong>Connect with Others:</strong> Once in the group, you can connect with other members</li>
+                        <li><strong>Download Contacts:</strong> When admin releases VCF files, download them to save all contacts</li>
                     </ol>
                 </div>
             </div>
@@ -532,13 +650,15 @@
                 </div>
                 
                 <div class="instructions">
-                    <h3>Guidelines</h3>
+                    <h3><i class="fas fa-list-alt"></i> Guidelines & Instructions</h3>
                     <ol>
                         <li>Only OOU students are eligible to join</li>
-                        <li>Use your official name as registered in the university</li>
-                        <li>Ensure your WhatsApp number is active</li>
-                        <li>Respect group rules and maintain decorum</li>
-                        <li>Contact admin for any issues</li>
+                        <li>Use a recognizable name or nickname</li>
+                        <li>Ensure your WhatsApp number is active and correct</li>
+                        <li>Respect group rules and maintain positive communication</li>
+                        <li>Contact admin for any registration issues</li>
+                        <li>Check notifications for new VCF file releases</li>
+                        <li>Download VCF files when available to save contacts</li>
                     </ol>
                 </div>
                 
@@ -569,7 +689,12 @@
                             <span class="slider"></span>
                         </label>
                     </div>
-                    <button class="download-btn" id="downloadContacts">Download Contacts CSV</button>
+                    <button class="download-btn" id="downloadContacts">
+                        <i class="fas fa-download"></i> Download Contacts CSV
+                    </button>
+                    <button class="download-btn" id="releaseVcf" style="background: var(--food-orange); margin-left: 10px;">
+                        <i class="fas fa-bullhorn"></i> Release VCF Notification
+                    </button>
                 </div>
                 
                 <div class="control-group">
@@ -601,6 +726,9 @@
 
         <footer>
             <p>&copy; 2025 OOU Gain Contact System. Created by Kingbadboitech. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                <i class="fas fa-exclamation-circle"></i> This website is used for gaining WhatsApp contacts only
+            </p>
         </footer>
     </div>
 
@@ -620,6 +748,10 @@
         const currentCapacity = document.getElementById('currentCapacity');
         const downloadContactsBtn = document.getElementById('downloadContacts');
         const contactsTableBody = document.getElementById('contactsTableBody');
+        const notification = document.getElementById('notification');
+        const notificationClose = document.getElementById('notificationClose');
+        const releaseVcfBtn = document.getElementById('releaseVcf');
+        const typingText = document.getElementById('typingText');
 
         // Initialize data
         let contacts = [];
@@ -627,9 +759,21 @@
         let allowDownloads = true;
         let contactIdCounter = 1;
 
+        // Auto-typing texts
+        const typingTexts = [
+            "Join OOU WhatsApp Group 2025 - Connect with fellow students!",
+            "Register now to gain valuable contacts and network!",
+            "Get added to our community - Share ideas and opportunities!",
+            "Secure your spot - Limited to 500 registrations only!"
+        ];
+        let currentTextIndex = 0;
+        let currentCharIndex = 0;
+        let isDeleting = false;
+
         // Initialize the page
         function init() {
             updateStats();
+            typeText();
             
             // Admin login event
             adminLoginBtn.addEventListener('click', function() {
@@ -657,6 +801,12 @@
                 
                 const name = document.getElementById('name').value;
                 const phone = document.getElementById('phone').value;
+                
+                // Validate phone number format
+                if (!phone.startsWith('+')) {
+                    alert("Please include country code in your phone number (e.g., +2348012345678)");
+                    return;
+                }
                 
                 if (contacts.length >= maxCapacityValue) {
                     alert("Sorry, registration is full. Maximum capacity reached.");
@@ -731,6 +881,17 @@
                 allowDownloads = this.checked;
                 alert(allowDownloads ? "Downloads enabled." : "Downloads disabled.");
             });
+            
+            // Release VCF notification
+            releaseVcfBtn.addEventListener('click', function() {
+                showNotification();
+                alert("VCF release notification sent to all users!");
+            });
+            
+            // Close notification
+            notificationClose.addEventListener('click', function() {
+                hideNotification();
+            });
         }
 
         // Update statistics
@@ -765,6 +926,51 @@
                 `;
                 contactsTableBody.appendChild(row);
             });
+        }
+
+        // Show notification
+        function showNotification() {
+            notification.classList.add('show');
+            
+            // Auto hide after 10 seconds
+            setTimeout(() => {
+                hideNotification();
+            }, 10000);
+        }
+
+        // Hide notification
+        function hideNotification() {
+            notification.classList.remove('show');
+        }
+
+        // Auto typing effect
+        function typeText() {
+            const currentText = typingTexts[currentTextIndex];
+            
+            if (isDeleting) {
+                // Deleting text
+                typingText.textContent = currentText.substring(0, currentCharIndex - 1);
+                currentCharIndex--;
+                
+                if (currentCharIndex === 0) {
+                    isDeleting = false;
+                    currentTextIndex = (currentTextIndex + 1) % typingTexts.length;
+                    setTimeout(typeText, 500);
+                } else {
+                    setTimeout(typeText, 50);
+                }
+            } else {
+                // Typing text
+                typingText.textContent = currentText.substring(0, currentCharIndex + 1);
+                currentCharIndex++;
+                
+                if (currentCharIndex === currentText.length) {
+                    isDeleting = true;
+                    setTimeout(typeText, 2000);
+                } else {
+                    setTimeout(typeText, 100);
+                }
+            }
         }
 
         // Initialize the application
