@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOU Gain Contact - WhatsApp Contact Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #25D366;
+            --secondary: #128C7E;
+            --accent: #075E54;
+            --light: #DCF8C6;
+            --dark: #0a0a0a;
+            --food-orange: #FF9800;
+            --food-yellow: #FFC107;
+            --food-brown: #795548;
+            --food-red: #F44336;
+            --food-green: #4CAF50;
+        }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--food-orange);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--food-orange);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: var(--food-yellow);
+        }
+
+        .logo span {
+            color: var(--food-orange);
+        }
+
+        .admin-login {
+            background: var(--food-red);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .admin-login:hover {
+            background: var(--food-orange);
+            transform: scale(1.05);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .form-section {
+            background: rgba(10, 10, 10, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--food-orange);
+        }
+
+        .form-section h2 {
+            color: var(--food-yellow);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--light);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--food-orange);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--food-yellow);
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--food-green);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .stats-section {
+            background: rgba(10, 10, 10, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--food-orange);
+        }
+
+        .stats-section h2 {
+            color: var(--food-yellow);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 152, 0, 0.2);
+            border-radius: 10px;
+            width: 45%;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--food-yellow);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--light);
+        }
+
+        .progress-container {
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, var(--food-green), var(--food-yellow));
+            width: 65%;
+            border-radius: 10px;
+            transition: width 0.5s;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            color: var(--light);
+        }
+
+        .instructions {
+            margin-top: 40px;
+        }
+
+        .instructions h3 {
+            color: var(--food-yellow);
+            margin-bottom: 15px;
+        }
+
+        .instructions ol {
+            padding-left: 20px;
+            line-height: 1.6;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+        }
+
+        .creator-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--food-orange);
+        }
+
+        .creator-profile img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--food-orange);
+        }
+
+        .creator-info h4 {
+            color: var(--food-yellow);
+            margin-bottom: 5px;
+        }
+
+        .creator-info p {
+            color: var(--light);
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--food-orange);
+            color: var(--light);
+        }
+
+        /* Admin Panel Styles */
+        .admin-panel {
+            display: none;
+            background: rgba(10, 10, 10, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+            border: 2px solid var(--food-red);
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .admin-header h2 {
+            color: var(--food-red);
+        }
+
+        .logout-btn {
+            background: var(--food-red);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .admin-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .control-group {
+            background: rgba(255, 152, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .control-group h3 {
+            color: var(--food-yellow);
+            margin-bottom: 15px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--food-green);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .capacity-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .capacity-control input {
+            width: 100px;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid var(--food-orange);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .update-btn {
+            background: var(--food-green);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .contacts-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .contacts-table th, .contacts-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contacts-table th {
+            background: rgba(255, 152, 0, 0.2);
+            color: var(--food-yellow);
+        }
+
+        .download-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        /* Privacy Notice */
+        .privacy-notice {
+            background: rgba(255, 152, 0, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid var(--food-orange);
+        }
+
+        .privacy-notice h4 {
+            color: var(--food-yellow);
+            margin-bottom: 8px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-controls {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .stats-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .stat-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="https://avatars.githubusercontent.com/u/123456789?v=4" alt="Kingbadboitech Logo">
+                <h1>OOU <span>Gain Contact</span></h1>
+            </div>
+            <button class="admin-login" id="adminLoginBtn">Admin Login</button>
+        </header>
+
+        <div class="main-content">
+            <div class="form-section">
+                <h2>Join Our WhatsApp Group 2025</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="Enter your WhatsApp number" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit & Join Group</button>
+                </form>
+                
+                <div class="privacy-notice">
+                    <h4><i class="fas fa-shield-alt"></i> Privacy Notice</h4>
+                    <p>Your contact information is secure and will not be displayed publicly. Only the admin has access to registered contacts.</p>
+                </div>
+                
+                <div class="instructions">
+                    <h3>How to Use This System</h3>
+                    <ol>
+                        <li>Enter your full name and WhatsApp phone number</li>
+                        <li>Click the submit button to register</li>
+                        <li>Wait for confirmation message on WhatsApp</li>
+                        <li>You'll be added to the OOU WhatsApp group</li>
+                        <li>Check the statistics to see current registration count</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <h2>Registration Statistics 2025</h2>
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <div class="stat-number" id="registeredCount">0</div>
+                        <div class="stat-label">Registered Users</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="capacityCount">500</div>
+                        <div class="stat-label">Maximum Capacity</div>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress" id="progressBar"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>0</span>
+                        <span id="progressPercentage">0%</span>
+                        <span>500</span>
+                    </div>
+                </div>
+                
+                <div class="instructions">
+                    <h3>Guidelines</h3>
+                    <ol>
+                        <li>Only OOU students are eligible to join</li>
+                        <li>Use your official name as registered in the university</li>
+                        <li>Ensure your WhatsApp number is active</li>
+                        <li>Respect group rules and maintain decorum</li>
+                        <li>Contact admin for any issues</li>
+                    </ol>
+                </div>
+                
+                <div class="creator-profile">
+                    <img src="https://avatars.githubusercontent.com/u/123456789?v=4" alt="Kingbadboitech">
+                    <div class="creator-info">
+                        <h4>Kingbadboitech</h4>
+                        <p>Creator & Developer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div class="admin-panel" id="adminPanel">
+            <div class="admin-header">
+                <h2>Admin Control Panel</h2>
+                <button class="logout-btn" id="logoutBtn">Logout</button>
+            </div>
+            
+            <div class="admin-controls">
+                <div class="control-group">
+                    <h3>Download Controls</h3>
+                    <div class="toggle-container">
+                        <label>Allow File Downloads:</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="downloadToggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <button class="download-btn" id="downloadContacts">Download Contacts CSV</button>
+                </div>
+                
+                <div class="control-group">
+                    <h3>Capacity Settings</h3>
+                    <div class="capacity-control">
+                        <label>Max Capacity:</label>
+                        <input type="number" id="maxCapacity" value="500" min="100" max="1000">
+                        <button class="update-btn" id="updateCapacity">Update</button>
+                    </div>
+                    <p>Current: <span id="currentCapacity">500</span> contacts</p>
+                </div>
+            </div>
+            
+            <h3>Registered Contacts (Admin View Only)</h3>
+            <table class="contacts-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Registration Date</th>
+                    </tr>
+                </thead>
+                <tbody id="contactsTableBody">
+                    <!-- Contacts will be populated here -->
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 OOU Gain Contact System. Created by Kingbadboitech. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // DOM Elements
+        const adminLoginBtn = document.getElementById('adminLoginBtn');
+        const adminPanel = document.getElementById('adminPanel');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const contactForm = document.getElementById('contactForm');
+        const registeredCount = document.getElementById('registeredCount');
+        const capacityCount = document.getElementById('capacityCount');
+        const progressBar = document.getElementById('progressBar');
+        const progressPercentage = document.getElementById('progressPercentage');
+        const downloadToggle = document.getElementById('downloadToggle');
+        const maxCapacity = document.getElementById('maxCapacity');
+        const updateCapacityBtn = document.getElementById('updateCapacity');
+        const currentCapacity = document.getElementById('currentCapacity');
+        const downloadContactsBtn = document.getElementById('downloadContacts');
+        const contactsTableBody = document.getElementById('contactsTableBody');
+
+        // Initialize data
+        let contacts = [];
+        let maxCapacityValue = 500;
+        let allowDownloads = true;
+        let contactIdCounter = 1;
+
+        // Initialize the page
+        function init() {
+            updateStats();
+            
+            // Admin login event
+            adminLoginBtn.addEventListener('click', function() {
+                const username = prompt("Enter admin username:");
+                const password = prompt("Enter admin password:");
+                
+                if (username === "kingbadboitech001" && password === "admin123") {
+                    adminPanel.style.display = "block";
+                    populateContactsTable();
+                    alert("Admin login successful!");
+                } else {
+                    alert("Invalid credentials!");
+                }
+            });
+            
+            // Logout event
+            logoutBtn.addEventListener('click', function() {
+                adminPanel.style.display = "none";
+                alert("Logged out successfully!");
+            });
+            
+            // Form submission
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                
+                if (contacts.length >= maxCapacityValue) {
+                    alert("Sorry, registration is full. Maximum capacity reached.");
+                    return;
+                }
+                
+                // Add new contact
+                const newContact = {
+                    id: contactIdCounter++,
+                    name: name,
+                    phone: phone,
+                    date: new Date().toISOString().split('T')[0]
+                };
+                
+                contacts.push(newContact);
+                updateStats();
+                
+                // If admin panel is open, update the table
+                if (adminPanel.style.display === "block") {
+                    populateContactsTable();
+                }
+                
+                alert("Registration successful! You will be added to the WhatsApp group shortly.");
+                contactForm.reset();
+            });
+            
+            // Update capacity
+            updateCapacityBtn.addEventListener('click', function() {
+                const newCapacity = parseInt(maxCapacity.value);
+                if (newCapacity >= contacts.length && newCapacity >= 100 && newCapacity <= 1000) {
+                    maxCapacityValue = newCapacity;
+                    currentCapacity.textContent = newCapacity;
+                    updateStats();
+                    alert("Capacity updated successfully!");
+                } else {
+                    alert("Invalid capacity value. Must be at least " + contacts.length + " and between 100-1000.");
+                }
+            });
+            
+            // Download contacts
+            downloadContactsBtn.addEventListener('click', function() {
+                if (!allowDownloads) {
+                    alert("Downloads are currently disabled.");
+                    return;
+                }
+                
+                if (contacts.length === 0) {
+                    alert("No contacts to download.");
+                    return;
+                }
+                
+                // Create CSV content
+                let csvContent = "ID,Name,Phone,Date\n";
+                contacts.forEach(contact => {
+                    csvContent += `${contact.id},${contact.name},${contact.phone},${contact.date}\n`;
+                });
+                
+                // Create download link
+                const encodedUri = encodeURI('data:text/csv;charset=utf-8,' + csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "OOU_Contacts_2025.csv");
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                alert("Contacts downloaded successfully!");
+            });
+            
+            // Toggle downloads
+            downloadToggle.addEventListener('change', function() {
+                allowDownloads = this.checked;
+                alert(allowDownloads ? "Downloads enabled." : "Downloads disabled.");
+            });
+        }
+
+        // Update statistics
+        function updateStats() {
+            const registered = contacts.length;
+            const percentage = Math.min(100, (registered / maxCapacityValue) * 100);
+            
+            registeredCount.textContent = registered;
+            capacityCount.textContent = maxCapacityValue;
+            progressBar.style.width = percentage + "%";
+            progressPercentage.textContent = Math.round(percentage) + "%";
+        }
+
+        // Populate contacts table (admin only)
+        function populateContactsTable() {
+            contactsTableBody.innerHTML = "";
+            
+            if (contacts.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="4" style="text-align: center;">No contacts registered yet</td>`;
+                contactsTableBody.appendChild(row);
+                return;
+            }
+            
+            contacts.forEach(contact => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${contact.id}</td>
+                    <td>${contact.name}</td>
+                    <td>${contact.phone}</td>
+                    <td>${contact.date}</td>
+                `;
+                contactsTableBody.appendChild(row);
+            });
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
