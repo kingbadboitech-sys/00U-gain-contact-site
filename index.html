@@ -413,54 +413,44 @@
             background: var(--primary);
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 12px 20px;
+            border-radius: 8px;
             cursor: pointer;
-            margin-top: 20px;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 10px 0;
         }
 
-        /* Notification Styles */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--food-green);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
+        .download-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        /* VCF Download Section */
+        .vcf-section {
+            background: rgba(37, 211, 102, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border: 1px solid var(--primary);
+            text-align: center;
+        }
+
+        .vcf-section h3 {
+            color: var(--food-yellow);
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
-            transform: translateX(150%);
-            transition: transform 0.5s ease;
         }
 
-        .notification.show {
-            transform: translateX(0);
-        }
-
-        .notification i {
-            font-size: 1.5rem;
-        }
-
-        .notification-content h4 {
-            margin-bottom: 5px;
-        }
-
-        .notification-content p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .notification-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            margin-left: 10px;
+        .vcf-info {
+            margin-bottom: 15px;
+            line-height: 1.6;
         }
 
         /* Auto Typing Styles */
@@ -468,10 +458,13 @@
             height: 60px;
             margin-bottom: 20px;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .typing-text {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             color: var(--food-yellow);
             border-right: 2px solid var(--food-yellow);
             white-space: nowrap;
@@ -503,21 +496,6 @@
             margin-bottom: 8px;
         }
 
-        /* Purpose Statement */
-        .purpose-statement {
-            background: rgba(121, 85, 72, 0.2);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-            border: 1px solid var(--food-brown);
-        }
-
-        .purpose-statement h3 {
-            color: var(--food-yellow);
-            margin-bottom: 10px;
-        }
-
         /* Responsive Design */
         @media (max-width: 900px) {
             .main-content {
@@ -547,28 +525,10 @@
             .stat-box {
                 width: 100%;
             }
-            
-            .notification {
-                left: 10px;
-                right: 10px;
-                top: 10px;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Notification -->
-    <div class="notification" id="notification">
-        <i class="fas fa-bullhorn"></i>
-        <div class="notification-content">
-            <h4>New VCF File Available!</h4>
-            <p>Admin has released a new contact file. Download now!</p>
-        </div>
-        <button class="notification-close" id="notificationClose">
-            <i class="fas fa-times"></i>
-        </button>
-    </div>
-
     <div class="container">
         <header>
             <div class="logo">
@@ -578,33 +538,38 @@
             <button class="admin-login" id="adminLoginBtn">Admin Login</button>
         </header>
 
+        <!-- Auto Typing Welcome -->
+        <div class="auto-typing">
+            <div class="typing-text">Welcome to Gain Contact Site</div>
+        </div>
+
         <div class="main-content">
             <div class="form-section">
-                <div class="auto-typing">
-                    <div class="typing-text" id="typingText"></div>
-                </div>
-                
-                <div class="purpose-statement">
-                    <h3><i class="fas fa-info-circle"></i> Website Purpose</h3>
-                    <p>This website is designed specifically for gaining WhatsApp contacts only. Register to join our community!</p>
-                </div>
-                
-                <h2>Join Our WhatsApp Group 2025</h2>
+                <h2>Register Your Contact</h2>
                 <form id="contactForm">
                     <div class="form-group">
-                        <label for="name"><i class="fas fa-user"></i> Your Name or Nickname</label>
-                        <input type="text" id="name" placeholder="Enter your name or nickname" required>
-                        <small style="color: var(--light); font-size: 0.8rem;">Use any name you prefer to be called</small>
+                        <label for="name"><i class="fas fa-user"></i> Your Name</label>
+                        <input type="text" id="name" placeholder="Enter your name" required>
                     </div>
                     <div class="form-group">
-                        <label for="phone"><i class="fas fa-phone"></i> WhatsApp Phone Number</label>
-                        <input type="tel" id="phone" placeholder="Enter your WhatsApp number with country code" required>
-                        <small style="color: var(--light); font-size: 0.8rem;">Format: +2348012345678 (include country code)</small>
+                        <label for="phone"><i class="fas fa-phone"></i> WhatsApp Number</label>
+                        <input type="tel" id="phone" placeholder="Enter your WhatsApp number" required>
                     </div>
                     <button type="submit" class="submit-btn">
-                        <i class="fab fa-whatsapp"></i> Submit & Join Group
+                        Submit
                     </button>
                 </form>
+                
+                <!-- VCF Download Section for Normal Users -->
+                <div class="vcf-section">
+                    <h3><i class="fas fa-file-export"></i> Download Contacts</h3>
+                    <div class="vcf-info">
+                        <p>Download all registered contacts as VCF file to easily save to your phone</p>
+                    </div>
+                    <button class="download-btn" id="userDownloadVcf">
+                        <i class="fas fa-download"></i> Download VCF File
+                    </button>
+                </div>
                 
                 <div class="privacy-notice">
                     <h4><i class="fas fa-shield-alt"></i> Privacy Notice</h4>
@@ -612,21 +577,18 @@
                 </div>
                 
                 <div class="instructions">
-                    <h3><i class="fas fa-graduation-cap"></i> How to Gain Contacts - Complete Guide</h3>
+                    <h3><i class="fas fa-info-circle"></i> How It Works</h3>
                     <ol>
-                        <li><strong>Enter Your Name/Nickname:</strong> Use any name you want to be identified by in the group</li>
-                        <li><strong>Provide WhatsApp Number:</strong> Enter your active WhatsApp number with country code (e.g., +2348012345678)</li>
-                        <li><strong>Submit Registration:</strong> Click the submit button to register your details</li>
-                        <li><strong>Wait for Confirmation:</strong> You'll receive a WhatsApp message confirming your registration</li>
-                        <li><strong>Join the Group:</strong> You'll be added to the OOU WhatsApp group automatically</li>
-                        <li><strong>Connect with Others:</strong> Once in the group, you can connect with other members</li>
-                        <li><strong>Download Contacts:</strong> When admin releases VCF files, download them to save all contacts</li>
+                        <li>Enter your name and WhatsApp number</li>
+                        <li>Click the Submit button to register</li>
+                        <li>Download VCF file to save all contacts</li>
+                        <li>Import VCF file to your phone contacts</li>
                     </ol>
                 </div>
             </div>
 
             <div class="stats-section">
-                <h2>Registration Statistics 2025</h2>
+                <h2>Registration Statistics</h2>
                 <div class="stats-container">
                     <div class="stat-box">
                         <div class="stat-number" id="registeredCount">0</div>
@@ -650,15 +612,13 @@
                 </div>
                 
                 <div class="instructions">
-                    <h3><i class="fas fa-list-alt"></i> Guidelines & Instructions</h3>
+                    <h3><i class="fas fa-download"></i> VCF File Instructions</h3>
                     <ol>
-                        <li>Only OOU students are eligible to join</li>
-                        <li>Use a recognizable name or nickname</li>
-                        <li>Ensure your WhatsApp number is active and correct</li>
-                        <li>Respect group rules and maintain positive communication</li>
-                        <li>Contact admin for any registration issues</li>
-                        <li>Check notifications for new VCF file releases</li>
-                        <li>Download VCF files when available to save contacts</li>
+                        <li>Click "Download VCF File" button</li>
+                        <li>Save the file to your device</li>
+                        <li>Open your phone's contacts app</li>
+                        <li>Import the VCF file from storage</li>
+                        <li>All contacts will be saved to your phone</li>
                     </ol>
                 </div>
                 
@@ -681,19 +641,12 @@
             
             <div class="admin-controls">
                 <div class="control-group">
-                    <h3>Download Controls</h3>
-                    <div class="toggle-container">
-                        <label>Allow File Downloads:</label>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="downloadToggle" checked>
-                            <span class="slider"></span>
-                        </label>
-                    </div>
+                    <h3>Contact Management</h3>
                     <button class="download-btn" id="downloadContacts">
                         <i class="fas fa-download"></i> Download Contacts CSV
                     </button>
-                    <button class="download-btn" id="releaseVcf" style="background: var(--food-orange); margin-left: 10px;">
-                        <i class="fas fa-bullhorn"></i> Release VCF Notification
+                    <button class="download-btn" id="adminDownloadVcf" style="background: var(--food-orange);">
+                        <i class="fas fa-file-export"></i> Download VCF File
                     </button>
                 </div>
                 
@@ -726,9 +679,6 @@
 
         <footer>
             <p>&copy; 2025 OOU Gain Contact System. Created by Kingbadboitech. All rights reserved.</p>
-            <p style="margin-top: 10px; font-size: 0.9rem;">
-                <i class="fas fa-exclamation-circle"></i> This website is used for gaining WhatsApp contacts only
-            </p>
         </footer>
     </div>
 
@@ -742,38 +692,27 @@
         const capacityCount = document.getElementById('capacityCount');
         const progressBar = document.getElementById('progressBar');
         const progressPercentage = document.getElementById('progressPercentage');
-        const downloadToggle = document.getElementById('downloadToggle');
         const maxCapacity = document.getElementById('maxCapacity');
         const updateCapacityBtn = document.getElementById('updateCapacity');
         const currentCapacity = document.getElementById('currentCapacity');
         const downloadContactsBtn = document.getElementById('downloadContacts');
+        const adminDownloadVcfBtn = document.getElementById('adminDownloadVcf');
+        const userDownloadVcfBtn = document.getElementById('userDownloadVcf');
         const contactsTableBody = document.getElementById('contactsTableBody');
-        const notification = document.getElementById('notification');
-        const notificationClose = document.getElementById('notificationClose');
-        const releaseVcfBtn = document.getElementById('releaseVcf');
-        const typingText = document.getElementById('typingText');
 
-        // Initialize data
-        let contacts = [];
-        let maxCapacityValue = 500;
-        let allowDownloads = true;
-        let contactIdCounter = 1;
-
-        // Auto-typing texts
-        const typingTexts = [
-            "Join OOU WhatsApp Group 2025 - Connect with fellow students!",
-            "Register now to gain valuable contacts and network!",
-            "Get added to our community - Share ideas and opportunities!",
-            "Secure your spot - Limited to 500 registrations only!"
-        ];
-        let currentTextIndex = 0;
-        let currentCharIndex = 0;
-        let isDeleting = false;
+        // Initialize data from localStorage or defaults
+        let contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+        let maxCapacityValue = parseInt(localStorage.getItem('maxCapacity')) || 500;
+        let contactIdCounter = parseInt(localStorage.getItem('contactIdCounter')) || 1;
 
         // Initialize the page
         function init() {
+            // Set initial values
+            maxCapacity.value = maxCapacityValue;
+            currentCapacity.textContent = maxCapacityValue;
+            
             updateStats();
-            typeText();
+            populateContactsTable();
             
             // Admin login event
             adminLoginBtn.addEventListener('click', function() {
@@ -782,7 +721,6 @@
                 
                 if (username === "kingbadboitech001" && password === "admin123") {
                     adminPanel.style.display = "block";
-                    populateContactsTable();
                     alert("Admin login successful!");
                 } else {
                     alert("Invalid credentials!");
@@ -802,9 +740,9 @@
                 const name = document.getElementById('name').value;
                 const phone = document.getElementById('phone').value;
                 
-                // Validate phone number format
-                if (!phone.startsWith('+')) {
-                    alert("Please include country code in your phone number (e.g., +2348012345678)");
+                // Validate phone number
+                if (!phone.match(/^\+?[\d\s-()]+$/)) {
+                    alert("Please enter a valid phone number");
                     return;
                 }
                 
@@ -818,10 +756,11 @@
                     id: contactIdCounter++,
                     name: name,
                     phone: phone,
-                    date: new Date().toISOString().split('T')[0]
+                    date: new Date().toLocaleDateString()
                 };
                 
                 contacts.push(newContact);
+                saveToLocalStorage();
                 updateStats();
                 
                 // If admin panel is open, update the table
@@ -829,7 +768,7 @@
                     populateContactsTable();
                 }
                 
-                alert("Registration successful! You will be added to the WhatsApp group shortly.");
+                alert("Registration successful!");
                 contactForm.reset();
             });
             
@@ -839,6 +778,7 @@
                 if (newCapacity >= contacts.length && newCapacity >= 100 && newCapacity <= 1000) {
                     maxCapacityValue = newCapacity;
                     currentCapacity.textContent = newCapacity;
+                    localStorage.setItem('maxCapacity', newCapacity);
                     updateStats();
                     alert("Capacity updated successfully!");
                 } else {
@@ -846,13 +786,8 @@
                 }
             });
             
-            // Download contacts
+            // Download contacts as CSV (Admin only)
             downloadContactsBtn.addEventListener('click', function() {
-                if (!allowDownloads) {
-                    alert("Downloads are currently disabled.");
-                    return;
-                }
-                
                 if (contacts.length === 0) {
                     alert("No contacts to download.");
                     return;
@@ -868,7 +803,7 @@
                 const encodedUri = encodeURI('data:text/csv;charset=utf-8,' + csvContent);
                 const link = document.createElement("a");
                 link.setAttribute("href", encodedUri);
-                link.setAttribute("download", "OOU_Contacts_2025.csv");
+                link.setAttribute("download", "OOU_Contacts.csv");
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -876,22 +811,40 @@
                 alert("Contacts downloaded successfully!");
             });
             
-            // Toggle downloads
-            downloadToggle.addEventListener('change', function() {
-                allowDownloads = this.checked;
-                alert(allowDownloads ? "Downloads enabled." : "Downloads disabled.");
+            // Download contacts as VCF (Admin)
+            adminDownloadVcfBtn.addEventListener('click', function() {
+                downloadVcfFile();
             });
             
-            // Release VCF notification
-            releaseVcfBtn.addEventListener('click', function() {
-                showNotification();
-                alert("VCF release notification sent to all users!");
+            // Download contacts as VCF (Normal User)
+            userDownloadVcfBtn.addEventListener('click', function() {
+                downloadVcfFile();
+            });
+        }
+
+        // Download VCF file function
+        function downloadVcfFile() {
+            if (contacts.length === 0) {
+                alert("No contacts to download.");
+                return;
+            }
+            
+            // Create VCF content
+            let vcfContent = "";
+            contacts.forEach(contact => {
+                vcfContent += `BEGIN:VCARD\nVERSION:3.0\nFN:${contact.name}\nTEL:${contact.phone}\nEND:VCARD\n`;
             });
             
-            // Close notification
-            notificationClose.addEventListener('click', function() {
-                hideNotification();
-            });
+            // Create download link
+            const encodedUri = encodeURI('data:text/vcard;charset=utf-8,' + vcfContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "OOU_Contacts.vcf");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert("VCF file downloaded successfully!");
         }
 
         // Update statistics
@@ -928,49 +881,10 @@
             });
         }
 
-        // Show notification
-        function showNotification() {
-            notification.classList.add('show');
-            
-            // Auto hide after 10 seconds
-            setTimeout(() => {
-                hideNotification();
-            }, 10000);
-        }
-
-        // Hide notification
-        function hideNotification() {
-            notification.classList.remove('show');
-        }
-
-        // Auto typing effect
-        function typeText() {
-            const currentText = typingTexts[currentTextIndex];
-            
-            if (isDeleting) {
-                // Deleting text
-                typingText.textContent = currentText.substring(0, currentCharIndex - 1);
-                currentCharIndex--;
-                
-                if (currentCharIndex === 0) {
-                    isDeleting = false;
-                    currentTextIndex = (currentTextIndex + 1) % typingTexts.length;
-                    setTimeout(typeText, 500);
-                } else {
-                    setTimeout(typeText, 50);
-                }
-            } else {
-                // Typing text
-                typingText.textContent = currentText.substring(0, currentCharIndex + 1);
-                currentCharIndex++;
-                
-                if (currentCharIndex === currentText.length) {
-                    isDeleting = true;
-                    setTimeout(typeText, 2000);
-                } else {
-                    setTimeout(typeText, 100);
-                }
-            }
+        // Save data to localStorage
+        function saveToLocalStorage() {
+            localStorage.setItem('contacts', JSON.stringify(contacts));
+            localStorage.setItem('contactIdCounter', contactIdCounter);
         }
 
         // Initialize the application
