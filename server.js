@@ -53,7 +53,7 @@ const premiumServerHealth = PREMIUM_SERVERS.reduce((acc, _, i) => {
 // User authentication storage
 let users = {
   'kingbadboi': {
-    password: '08140825959',
+    password: '09154834677',
     isAdmin: true
   }
 };
@@ -1495,7 +1495,7 @@ app.listen(PORT, async () => {
   console.log(`ð Frontend URL: http://localhost:${PORT}`);
   console.log(`ð Backend servers: ${BACKEND_SERVERS.join(', ')}`);
   console.log(`â­ Premium servers: ${PREMIUM_SERVERS.join(', ')}`);
-  console.log(`ð Admin login: username=kingbadboi, password=08140825959`);
+  console.log(`ð Admin login: username=kingbadboi, password=09154834677`);
   console.log(`ð Copy feature enabled for 8-digit pairing codes`);
   console.log(`ð¾ Database persistence enabled in: ${DATA_DIR}/`);
   console.log(`ð¥ Visitor tracking enabled with timeout: ${VISITOR_TIMEOUT/60000} minutes`);
