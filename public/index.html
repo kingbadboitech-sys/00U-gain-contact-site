@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCARLET MD - WhatsApp Pairing Code Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Runtime display -->
+    <div class="runtime-display">
+        <i class="fas fa-clock"></i>
+        <span id="runtime">00:00:00</span>
+        <span id="current-date"></span>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div class="page active" id="dashboardPage">
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <i class="fab fa-whatsapp logo-icon"></i>
+                        <h1>SCARLET MD <span class="premium-badge">v2.0</span></h1>
+                    </div>
+                    <div class="nav-buttons">
+                        <button class="btn btn-primary" id="premiumBtn">
+                            <i class="fas fa-crown"></i> Premium
+                        </button>
+                        <button class="btn btn-secondary" id="adminBtn">
+                            <i class="fas fa-cog"></i> Admin
+                        </button>
+                        <button class="theme-toggle" id="themeToggle">
+                            <i class="fas fa-sun"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container main-content">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <h1 class="hero-title">SCARLET MD WhatsApp Pairing</h1>
+                <p class="hero-subtitle">Generate pairing codes for WhatsApp with our advanced tool. Connect your WhatsApp account securely and efficiently.</p>
+                
+                <img src="https://i.ibb.co/Pz5CwtY/881.jpg" alt="SCARLET MD" class="hero-image">
+                
+                <div class="hero-cta">
+                    <button class="btn btn-primary" data-page="freePairingPage">
+                        <i class="fas fa-qrcode"></i> Generate Free Code
+                    </button>
+                    <button class="btn btn-premium" data-page="premiumPage">
+                        <i class="fas fa-crown"></i> Premium Features
+                    </button>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">Fast Pairing</h3>
+                    <p class="feature-desc">Generate pairing codes instantly with our optimized system.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Secure</h3>
+                    <p class="feature-desc">Your data is protected with advanced security measures.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3 class="feature-title">Unlimited</h3>
+                    <p class="feature-desc">Create unlimited pairing codes with our premium plan.</p>
+                </div>
+            </div>
+
+            <!-- Page Navigation -->
+            <div class="page-navigation">
+                <button class="page-btn active" data-page="dashboardPage">
+                    <i class="fas fa-home"></i> Dashboard
+                </button>
+                <button class="page-btn" data-page="freePairingPage">
+                    <i class="fas fa-qrcode"></i> Free Pairing
+                </button>
+                <button class="page-btn" data-page="premiumPage">
+                    <i class="fas fa-crown"></i> Premium
+                </button>
+                <button class="page-btn" data-page="statsPage">
+                    <i class="fas fa-chart-bar"></i> Stats
+                </button>
+                <button class="page-btn" data-page="communityPage">
+                    <i class="fas fa-comments"></i> Community
+                </button>
+                <button class="page-btn" data-page="linksPage">
+                    <i class="fas fa-link"></i> Links
+                </button>
+                <button class="page-btn" data-page="sponsorsPage">
+                    <i class="fas fa-handshake"></i> Sponsors
+                </button>
+                <button class="page-btn" data-page="tutorialPage">
+                    <i class="fas fa-video"></i> Tutorials
+                </button>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <div class="dashboard-card" data-page="freePairingPage">
+                    <i class="fas fa-qrcode"></i>
+                    <h3>Free Pairing Code</h3>
+                    <p>Generate free WhatsApp pairing codes</p>
+                </div>
+                
+                <div class="dashboard-card" data-page="premiumPage">
+                    <i class="fas fa-crown"></i>
+                    <h3>Premium Features</h3>
+                    <p>Access premium pairing code generation</p>
+                </div>
+                
+                <div class="dashboard-card" data-page="statsPage">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>Statistics</h3>
+                    <p>View system stats and server status</p>
+                </div>
+                
+                <div class="dashboard-card" data-page="communityPage">
+                    <i class="fas fa-comments"></i>
+                    <h3>Community</h3>
+                    <p>Join the conversation</p>
+                </div>
+                
+                <div class="dashboard-card" data-page="linksPage">
+                    <i class="fas fa-link"></i>
+                    <h3>Channel Links</h3>
+                    <p>Important links and resources</p>
+                </div>
+                
+                <div class="dashboard-card" data-page="sponsorsPage">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Sponsors</h3>
+                    <p>Our valued sponsors and collaborators</p>
+                </div>
+                
+                <div class="dashboard-card" data-page="tutorialPage">
+                    <i class="fas fa-video"></i>
+                    <h3>Video Tutorials</h3>
+                    <p>Learn how to use SCARLET MD</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="music-player">
+            <button class="music-control" id="playPauseBtn">
+                <i class="fas fa-play"></i>
+            </button>
+            <div class="music-info">
+                SCARLET MD Theme
+            </div>
+        </div>
+
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <p>© 2023 SCARLET MD - Developed by King Badboi</p>
+                    <p>All rights reserved</p>
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">Terms of Service</a>
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <a href="#" class="footer-link">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Free Pairing Page -->
+    <div class="page" id="freePairingPage">
+        <button class="back-to-dashboard">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </button>
+        
+        <div class="container">
+            <div class="card">
+                <h2 class="card-title">
+                    <i class="fas fa-qrcode"></i> Free Pairing Code Generator
+                    <span class="free-badge">FREE</span>
+                </h2>
+                <form id="freePairingForm">
+                    <div class="form-group">
+                        <label for="freePhoneNumber"><i class="fas fa-phone"></i> WhatsApp Number</label>
+                        <input type="text" class="form-control" id="freePhoneNumber" placeholder="Enter in 2348140825958 format" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-free" style="width: 100%;" id="freeSubmitBtn">
+                        <i class="fas fa-paper-plane"></i> Generate Free Pairing Code
+                    </button>
+                </form>
+                
+                <div class="result-container" id="freeResultContainer">
+                    <h3 class="card-title">
+                        <i class="fas fa-check-circle"></i> Pairing Code Generated
+                    </h3>
+                    <div class="pairing-code" id="freePairingCode">
+                        <button class="copy-btn" id="freeCopyBtn">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    
+                    <div class="instructions">
+                        <h4><i class="fas fa-info-circle"></i> Instructions:</h4>
+                        <ol>
+                            <li>Open WhatsApp on your phone</li>
+                            <li>Go to Linked Devices</li>
+                            <li>Tap on Link a Device</li>
+                            <li>Enter the 8-digit code shown above</li>
+                            <li>Your WhatsApp will now be connected</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="error-container" id="freeErrorContainer" style="display: none; color: var(--error); margin-top: 15px; text-align: center; padding: 12px; border-radius: 10px; background: rgba(244, 67, 54, 0.1);"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Page -->
+    <div class="page" id="premiumPage">
+        <button class="back-to-dashboard">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </button>
+        <button class="logout-btn" id="premiumLogoutBtn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+        
+        <div class="container">
+            <div class="card">
+                <h2 class="card-title">
+                    <i class="fas fa-crown"></i> Premium Pairing Code Generator
+                    <span class="premium-badge">PREMIUM</span>
+                </h2>
+                
+                <div class="premium-section">
+                    <h3 class="card-title">
+                        <i class="fas fa-key"></i> Premium Account Access
+                    </h3>
+                    <div class="form-group">
+                        <label for="premiumKey"><i class="fas fa-key"></i> Premium Key</label>
+                        <input type="text" class="form-control" id="premiumKey" placeholder="Enter your premium key">
+                        <div class="key-format">Buy key from admin</div>
+                    </div>
+                    <button class="btn btn-premium" style="width: 100%;" id="premiumLoginBtn">
+                        <i class="fas fa-unlock"></i> Access Premium Features
+                    </button>
+                    
+                    <div id="premiumLoginResult" style="margin-top: 20px;"></div>
+                </div>
+
+                <div id="premiumPairingSection" style="display: none;">
+                    <h3 class="card-title">
+                        <i class="fas fa-qrcode"></i> Generate Premium Pairing Code
+                    </h3>
+                    <form id="premiumPairingForm">
+                        <div class="form-group">
+                            <label for="premiumPhoneNumber"><i class="fas fa-phone"></i> WhatsApp Number</label>
+                            <input type="text" class="form-control" id="premiumPhoneNumber" placeholder="Enter in 2348140825958 format" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-premium" style="width: 100%;" id="premiumSubmitBtn">
+                            <i class="fas fa-paper-plane"></i> Generate Premium Pairing Code
+                        </button>
+                    </form>
+                    
+                    <div class="result-container" id="premiumResultContainer">
+                        <h3 class="card-title">
+                            <i class="fas fa-check-circle"></i> Premium Pairing Code Generated
+                        </h3>
+                        <div class="pairing-code" id="premiumPairingCode">
+                            <button class="copy-btn" id="premiumCopyBtn">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        
+                        <div class="instructions">
+                            <h4><i class="fas fa-info-circle"></i> Instructions:</h4>
+                            <ol>
+                                <li>Open WhatsApp on your phone</li>
+                                <li>Go to Linked Devices</li>
+                                <li>Tap on Link a Device</li>
+                                <li>Enter the 8-digit code shown above</li>
+                                <li>Your WhatsApp will now be connected</li>
+                            </ol>
+                            <p style="margin-top: 10px; font-weight: bold; color: gold;">
+                                <i class="fas fa-crown"></i> Thank you for using our premium service!
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="error-container" id="premiumErrorContainer" style="display: none; color: var(--error); margin-top: 15px; text-align: center; padding: 12px; border-radius: 10px; background: rgba(244, 67, 54, 0.1);"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Page -->
+    <div class="page" id="statsPage">
+        <button class="back-to-dashboard">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </button>
+        
+        <div class="container">
+            <div class="card">
+                <h2 class="card-title">
+                    <i class="fas fa-chart-bar"></i> System Statistics
+                </h2>
+                
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalBots">0</div>
+                        <div class="stat-label">Total Active Bots</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="regularBots">0</div>
+                        <div class="stat-label">Regular Bots</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="premiumBots">0</div>
+                        <div class="stat-label">Premium Bots</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="serversOnline">0/0</div>
+                        <div class="stat-label">Servers Online</div>
+                    </div>
+                </div>
+                
+                <h3 class="card-title">
+                    <i class="fas fa-server"></i> Server Status
+                </h3>
+                <div id="serverStatus"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Community Page -->
+    <div class="page" id="communityPage">
+        <button class="back-to-dashboard">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </button>
+        
+        <div class="container">
+            <div class="card">
+                <h2 class="card-title">
+                    <i class="fas fa-comments"></i> Community
+                </h2>
+                
+                <div class="form-group">
+                    <textarea class="form-control" id="commentInput" placeholder="Add your comment..." rows="3"></textarea>
+                </div>
+                
+                <div class="image-upload">
+                    <input type="file" id="commentImage" accept="image/*" style="display: none;">
+                    <button type="button" class="image-upload-btn" id="commentImageBtn">
+                        <i class="fas fa-image"></i> Add Image
+                    </button>
+                    <span id="imageFileName"></span>
+                </div>
+                
+                <img id="imagePreview" class="image-preview">
+                
+                <button class="btn btn-primary" id="postCommentBtn">
+                    <i class="fas fa-paper-plane"></i> Post Comment
+                </button>
+                
+                <div class="comment-section" id="commentSection">
+                    <!-- Comments will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Links Page -->
+    <div class="page" id="linksPage">
+        <button class="back-to-dashboard">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </button>
+        
+        <div class="container">
+            <div class="card">
+                <h2 class="card-title">
+                    <i class="fas fa-link"></i> Important Links
+                </h2>
+                
+                <p>Follow our channels for updates and support:</p>
+                
+                <div class="social-links">
+                    <a href="https://whatsapp.com/channel/0029VadCyFZGufJ2YW4bG42x" class="social-link" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Channel 1
+                    </a>
+                    <a href="https://whatsapp.com/channel/0029VbBBS2l96H4JFuvTSd3A" class="social-link" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Channel 2
+                    </a>
+                    <a href="https://whatsapp.com/channel/0029VbAXG3D8F2p6TjSr7f1s" class="social-link" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Channel 3
+                    </a>
+                    <a href="https://chat.whatsapp.com/D6NNN1gMQlqBJDstk5a5Gk" class="social-link" target="_blank">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Group
+                    </a>
+                    <a href="https://github.com/BADBOI-v1" class="social-link" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="https://t.me/kingbadboitechisback" class="social-link" target="_blank">
+                        <i class="fab fa-telegram"></i> Telegram
+                    </a>
+                    <a href="https://tiktok.com/@kingbadboi52" class="social-link" target="_blank">
+                        <i class="fab fa-tiktok"></i> TikTok
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sponsors Page -->
+    <div class="page" id="sponsorsPage">
+        <button class="back-to-dashboard">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </button>
+        
+        <div class="container">
+            <div class="card">
+                <h2 class="card-title">
+                    <i class="fas fa-handshake"></i> Sponsors & Collaborators
+                </h2>
+                
+                <p>We thank our sponsors and collaborators for their support:</p>
+                
+                <div class="sponsors">
+                    <div class="sponsor-card">
+                        <div class="sponsor-header">
+                            <div class="sponsor-avatar">
+                                <img src="https://files.catbox.moe/8h5cox.jpg" alt="Kingbadboi">
+                            </div>
+                            <div class="sponsor-name">Kingbadboi</div>
+                            <div class="sponsor-role">Project Lead</div>
+                        </div>
+                        <div class="sponsor-body">
+                            <p class="sponsor-desc">Lead developer and creator of SCARLET MD. Passionate about creating innovative solutions.</p>
+                            <a href="https://t.me/kingbadboi001" class="social-link" style="margin-top: 10px; font-size: 0.8rem;">
+                                <i class="fab fa-telegram"></i> Contact on Telegram
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="sponsor-card">
+                        <div class="sponsor-header">
+                            <div class="sponsor-avatar">
+                                <img src="https://files.catbox.moe/zhbsht.jpg" alt="King Richie">
+                            </div>
+                            <div class="sponsor-name">King Richie</div>
+                            <div class="sponsor-role">Owner of Akane</div>
+                        </div>
+                        <div class="sponsor-body">
+                            <p class="sponsor-desc">Providing resources and infrastructure for development and innovation.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="sponsor-card">
+                        <div class="sponsor-header">
+                            <div class="sponsor-avatar">
+                                <img src="https://files.catbox.moe/553mfd.jpg" alt="Golden Hosting">
+                            </div>
+                            <div class="sponsor-name">Young Golden</div>
+                            <div class="sponsor-role">Hosting Sponsor</div>
+                        </div>
+                        <div class="sponsor-body">
+                            <p class="sponsor-desc">Quality VPS hosting services with premium support and reliability.</p>
+                            <a href="https://t.me/Goldenhostinz" class="social-link" style="margin-top: 10px; font-size: 0.8rem;">
+                                <i class="fab fa-telegram"></i> Contact on Telegram
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="sponsor-card">
+                        <div class="sponsor-header">
+                            <div class="sponsor-avatar">
+                                <img src="https://files.catbox.moe/kmccqj.jpg" alt="Queen Aisha">
+                            </div>
+                            <div class="sponsor-name">Queen Aisha my gf</div>
+                            <div class="sponsor-role">Project Sponsor</div>
+                        </div>
+                        <div class="sponsor-body">
+                            <p class="sponsor-desc">Supporting development and innovation in the tech community.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="sponsor-card">
+                        <div class="sponsor-header">
+                            <div class="sponsor-avatar">
+                                <img src="https://files.catbox.moe/nvlizv.jpg" alt="Olawake">
+                            </div>
+                            <div class="sponsor-name">Olawale</div>
+                            <div class="sponsor-role">Collaborator</div>
+                        </div>
+                        <div class="sponsor-body">
+                            <p class="sponsor-desc">Technical contributions and system architecture expertise.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="premium-section" style="margin-top: 20px;">
+                    <h3 class="card-title">
+                        <i class="fas fa-server"></i> Hosting Packages
+                    </h3>
+                    <p>Premium hosting packages available:</p>
+                    <ul style="margin: 15px 0 15px 20px;">
+                        <li>8 GB / 4 vCPU – ₦7,000 (~$4.57)</li>
+                        <li>16 GB / 8 vCPU – ₦10,000 (~$6.53)</li>
+                        <li>32 GB / 16 vCPU – ₦14,000 (~$9.14)</li>
+                    </ul>
+                    <p>All packages include free installation, DDoS protection, and premium themes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorial Page -->
+    <div class="page" id="tutorialPage">
+        <button class="back-to-dashboard">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </button>
+        
+        <div class="container">
+            <div class="video-url-form">
+                <h2 class="card-title">
+                    <i class="fas fa-video"></i> Add Tutorial Video
+                </h2>
+                <div class="form-group">
+                    <label for="videoUrl"><i class="fas fa-link"></i> Video URL</label>
+                    <input type="text" class="form-control" id="videoUrl" placeholder="Enter YouTube or video URL" value="https://files.catbox.moe/416frq.mp4">
+                </div>
+                <button class="btn btn-primary" id="loadVideoBtn">
+                    <i class="fas fa-play"></i> Load Video
+                </button>
+            </div>
+
+            <div class="video-container">
+                <video class="video-player" id="tutorialVideo" controls>
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-controls">
+                    <button id="playPauseVideoBtn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button id="rewindVideoBtn">
+                        <i class="fas fa-backward"></i>
+                    </button>
+                    <button id="forwardVideoBtn">
+                        <i class="fas fa-forward"></i>
+                    </button>
+                    <button id="stopVideoBtn">
+                        <i class="fas fa-stop"></i>
+                    </button>
+                    <div class="progress-container" id="videoProgressContainer">
+                        <div class="progress-bar" id="videoProgressBar"></div>
+                    </div>
+                    <div class="time-display" id="videoTimeDisplay">00:00 / 00:00</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">
+                    <i class="fas fa-graduation-cap"></i> How to Use SCARLET MD
+                </h2>
+                <div class="instructions">
+                    <h4><i class="fas fa-info-circle"></i> Step-by-Step Guide:</h4>
+                    <ol>
+                        <li>Enter your WhatsApp number in the correct format (2348140825958)</li>
+                        <li>Click on "Generate Pairing Code" button</li>
+                        <li>Wait for the 8-digit code to be generated</li>
+                        <li>Open WhatsApp on your phone</li>
+                        <li>Go to Linked Devices → Link a Device</li>
+                        <li>Enter the 8-digit code when prompted</li>
+                        <li>Your WhatsApp will now be connected to SCARLET MD</li>
+                    </ol>
+                    <p style="margin-top: 15px; font-weight: bold;">
+                        <i class="fas fa-lightbulb"></i> Tip: For best results, use a stable internet connection and ensure your phone has an active internet connection during the pairing process.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Page -->
+    <div class="page" id="adminPage">
+        <button class="back-to-dashboard">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </button>
+        <button class="logout-btn" id="adminLogoutBtn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+        
+        <div class="container">
+            <div class="card admin-section">
+                <h2 class="card-title">
+                    <i class="fas fa-cog"></i> Admin Panel
+                </h2>
+                
+                <div class="form-group">
+                    <label for="adminUsername"><i class="fas fa-user-shield"></i> Username</label>
+                    <input type="text" class="form-control" id="adminUsername" placeholder="Enter admin username">
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" class="form-control" id="adminPassword" placeholder="Enter admin password">
+                </div>
+                <button class="btn btn-primary" style="width: 100%;" id="adminLoginBtn">
+                    <i class="fas fa-sign-in-alt"></i> Login as Admin
+                </button>
+                
+                <div class="admin-features" style="display: none; margin-top: 20px;" id="adminFeatures">
+                    <h3 class="card-title">
+                        <i class="fas fa-tools"></i> Admin Tools
+                    </h3>
+                    
+                    <div class="form-group">
+                        <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" id="generateKeyBtn">
+                            <i class="fas fa-key"></i> Generate Premium Key
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" id="viewKeysBtn">
+                            <i class="fas fa-list"></i> View All Premium Keys
+                        </button>
+                    </div>
+
+                    <div class="admin-results" id="adminResults"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
